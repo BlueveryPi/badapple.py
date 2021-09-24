@@ -1,8 +1,17 @@
 import sys, time, os
+import zipfile
 from colorama import init
 init()
 
-f=open((os.path.dirname(__file__)).replace("\\", "/")+"/badapple copy.txt", "r+", encoding='utf-8') 
+if os.path.exists((os.path.dirname(__file__)).replace("\\", "/")+"/badapple copy.txt"):
+    f=open((os.path.dirname(__file__)).replace("\\", "/")+"/badapple copy.txt", "r+", encoding='utf-8')
+else:
+    with zipfile.ZipFile((os.path.dirname(__file__)).replace("\\", "/")+"/badapple copy.zip", 'r') as zip_ref:
+        zip_ref.extractall((os.path.dirname(__file__)).replace("\\", "/"))
+    f=open((os.path.dirname(__file__)).replace("\\", "/")+"/badapple copy.txt", "r+", encoding='utf-8')
+    print("Files are ready. Please restart the program.")
+    sys.exit()
+
 l=f.readlines()
 
 for i in range(len(l)):
